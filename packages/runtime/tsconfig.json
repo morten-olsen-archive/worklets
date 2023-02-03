@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/cjs",
+    "declarationDir": "./dist/cjs/types",
+    "target": "es2018",
+    "jsx": "react",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "ts-node": { "files": true },
+  "include": ["src/**/*.ts"]
+}

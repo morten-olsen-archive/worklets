@@ -1,0 +1,4 @@
+.turbo/
+/.pnpm-store
+node_modules/
+packages/*/dist

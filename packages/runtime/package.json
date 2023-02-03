@@ -1,0 +1,24 @@
+{
+  "name": "@morten-olsen/worklet-runtime",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/types/index.d.ts",
+  "files": [
+    "./dist"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --build --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@morten-olsen/worklet-sdk": "workspace:^1.0.0",
+    "eventemitter3": "^5.0.0"
+  }
+}

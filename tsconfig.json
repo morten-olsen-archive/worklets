@@ -1,0 +1,8 @@
+{
+  "include": [],
+  "references": [
+    { "path": "packages/sdk" },
+    { "path": "packages/runtime" },
+    { "path": "packages/cli" }
+  ]
+}

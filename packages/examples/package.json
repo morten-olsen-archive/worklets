@@ -1,0 +1,19 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@linear/sdk": "^2.1.0",
+    "@morten-olsen/worklet": "workspace:^1.0.0",
+    "@octokit/rest": "^19.0.7",
+    "octokit": "^2.0.14"
+  }
+}

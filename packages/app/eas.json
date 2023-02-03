@@ -1,0 +1,64 @@
+{
+  "cli": {
+    "promptToConfigurePushNotifications": false
+  },
+  "build": {
+    "monorepo": {
+      "cache": {
+        "key": "turbo",
+        "customPaths": [
+          "../../node_modules/.cache/turbo"
+        ]
+      },
+      "env": {
+        "TAMAGUI_TARGET": "native"
+      }
+    },
+    "development": {
+      "extends": "monorepo",
+      "distribution": "internal",
+      "developmentClient": true,
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "env": {
+        "APP_VARIANT": "development",
+        "TAMAGUI_TARGET": "native"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "developmentClient": true,
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "developmentClient": false
+    },
+    "production": {
+      "extends": "monorepo",
+      "distribution": "store",
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {
+        "resourceClass": "m1-medium"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "morten@olsen.pro",
+        "appleTeamId": "D2944KU2BE",
+        "ascAppId": "1669823931"
+      }
+    }
+  }
+}
+
