@@ -1,6 +1,7 @@
 {
   "cli": {
-    "promptToConfigurePushNotifications": false
+    "promptToConfigurePushNotifications": false,
+    "version": ">= 3.5.1"
   },
   "build": {
     "monorepo": {
@@ -9,15 +10,13 @@
         "customPaths": [
           "../../node_modules/.cache/turbo"
         ]
-      },
-      "env": {
-        "TAMAGUI_TARGET": "native"
       }
     },
     "development": {
       "extends": "monorepo",
       "distribution": "internal",
       "developmentClient": true,
+      "channel": "development",
       "android": {
         "buildType": "apk"
       },
@@ -25,13 +24,13 @@
         "resourceClass": "m1-medium"
       },
       "env": {
-        "APP_VARIANT": "development",
-        "TAMAGUI_TARGET": "native"
+        "APP_VARIANT": "development"
       }
     },
     "preview": {
       "distribution": "internal",
       "developmentClient": true,
+      "channel": "development",
       "android": {
         "buildType": "apk"
       },
@@ -43,6 +42,7 @@
     "production": {
       "extends": "monorepo",
       "distribution": "store",
+      "channel": "production",
       "android": {
         "buildType": "app-bundle"
       },

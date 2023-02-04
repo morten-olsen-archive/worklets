@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "TAMAGUI_TARGET=native expo start --dev-client",
+    "dev": "expo start --dev-client",
     "build:dev": "pnpm eas build --profile development --platform ios",
     "build:preview": "pnpm eas build --profile preview --platform ios",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
     "web": "expo start --web"
   },
   "dependencies": {

@@ -1,0 +1,33 @@
+name: On pull request
+ 
+on:
+  pull_request:
+
+env:
+  CI: true
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+permissions:
+  contents: write
+  pull-requests: write
+ 
+jobs:
+  build:
+    timeout-minutes: 90
+    name: Build, Test and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Build pnpm
+        uses: ./.github/workflows/actions/build-pnpm
+
+      - name: Update expo preview channel
+        uses: ./.github/workflows/actions/update-expo
+        with:
+          channel: pr-${{ github.event.number }} 
+          expo-token: ${{ secrets.EXPO_TOKEN }}

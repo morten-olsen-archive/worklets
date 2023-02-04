@@ -8,7 +8,8 @@
     "test:lint": "eslint packages/*/src",
     "build": "turbo build",
     "dev:mobile": "turbo dev --filter=app",
-    "publish:ci": "pnpm publish -r --access public"
+    "ci:version": "changeset version",
+    "ci:publish": "pnpm publish -r --access public"
   },
   "config": {
     "commitizen": {

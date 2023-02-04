@@ -1,0 +1,27 @@
+name: Build pnpm
+env:
+  CI: true
+  PNPM_CACHE_FOLDER: .pnpm-store
+runs:
+  using: composite
+  steps:
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Setup corepack
+      run: corepack enable
+      shell: bash
+
+    - name: Setup git credentials
+      run: |
+        git config --global user.email "github-action@example.com"
+        git config --global user.name "Github Bot"
+      shell: bash
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install 

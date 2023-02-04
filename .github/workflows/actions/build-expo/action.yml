@@ -1,0 +1,34 @@
+name: Build EXPO
+inputs:
+  profile:
+    required: true
+    type: string
+  expo-token:
+    required: true
+    type: string
+  apple-password: 
+    required: true
+    type: string
+  version:
+    required: true
+    type: string
+env:
+  CI: true
+
+runs:
+  using: composite
+  steps:
+
+    - uses: expo/expo-github-action@v6
+      with:
+        eas-version: latest
+        expo-version: latest
+        token: ${{ inputs.expo-token }}
+
+    - name: Build ios ${{ inputs.profile }} 
+      working-directory: packages/app
+      run: pnpm eas build --profile ${{ inputs.profile }} --platform ios --non-interactive
+      shell: bash
+      env:
+        BUILD_VERSION: ${{ inputs.version }}
+        EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ inputs.apple-password }}

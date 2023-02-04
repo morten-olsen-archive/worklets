@@ -1,0 +1,25 @@
+name: Publish Expo 
+inputs:
+  expo-token:
+    required: true
+    type: string
+
+  channel:
+    required: true
+    type: string
+env:
+  CI: true
+runs:
+  using: composite
+  steps:
+
+    - uses: expo/expo-github-action@v6
+      with:
+        eas-version: latest
+        expo-version: latest
+        token: ${{ inputs.expo-token }}
+
+    - name: Submit iOS
+      shell: bash
+      run: eas update --channel ${{ inputs.channel }} --message "ci" --non-interactive
+      working-directory: packages/app

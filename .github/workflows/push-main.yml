@@ -1,0 +1,55 @@
+name: On update to main
+ 
+on:
+  push:
+    branches: [main]
+
+env:
+  CI: true
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+permissions:
+  contents: write
+  pull-requests: write
+ 
+jobs:
+  build:
+    timeout-minutes: 90
+    name: Build, Test and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Build pnpm
+        uses: ./.github/workflows/actions/build-pnpm
+
+      - name: Update expo preview channel
+        uses: ./.github/workflows/actions/update-expo
+        with:
+          channel: preview 
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build expo production app
+        uses: ./.github/workflows/actions/build-expo
+        with:
+          profile: production
+          version: 1.${{ github.run_id }}.${{ github.run_number }}
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+          apple-password: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+
+      - name: Publish npm packages
+        uses: ./.github/workflows/actions/publish-npm
+        with:
+          npm-token: ${{ secrets.NPM_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish expo production app to TestFlight
+        uses: ./.github/workflows/actions/publish-expo
+        with:
+          version: 1.${{ github.run_id }}.${{ github.run_number }}
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+          apple-password: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}

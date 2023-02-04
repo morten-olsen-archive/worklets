@@ -1,0 +1,43 @@
+name: Create dev client
+ 
+on:
+  workflow_dispatch:
+
+env:
+  CI: true
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+permissions:
+  contents: write
+  pull-requests: write
+ 
+jobs:
+  build:
+    timeout-minutes: 90
+    name: Build, Test and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Build pnpm
+        uses: ./.github/workflows/actions/build-pnpm
+
+      - name: Build expo development app
+        uses: ./.github/workflows/actions/build-expo
+        with:
+          profile: development 
+          version: 1.${{ github.run_id }}.${{ github.run_number }}
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+          apple-password: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+
+      - name: Build expo preview app
+        uses: ./.github/workflows/actions/build-expo
+        with:
+          profile: preview 
+          version: 1.${{ github.run_id }}.${{ github.run_number }}
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+          apple-password: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
