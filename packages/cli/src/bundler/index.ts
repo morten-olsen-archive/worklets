@@ -1,6 +1,7 @@
 import { rollup, RollupOptions } from 'rollup';
 import { WorkletBundle } from '@morten-olsen/worklet-sdk';
-import { defaultConfig } from './config';
+import { defaultConfig } from './code-config';
+import { createReadConfig } from './read-config';
 import { dirname, resolve } from 'path';
 
 type BundleConfig = {
@@ -30,27 +31,34 @@ class Bundler {
       config = defaultConfig(this.#options),
     } = this.#options;
     const entryFile = resolve(dirname(this.#location), entry);
-    const bundler = await rollup({
+    const codeBundler = await rollup({
       ...config,
       input: entryFile,
     });
-    const { output } = await bundler.generate({
-      format: 'es',
-      globals: {
-        global: 'window',
-      },
+    const readBundler = await rollup({
+      ...createReadConfig(this.#options),
+      input: entryFile,
     });
-    if (output.length > 1) {
+    const { output: codeOutput } = await codeBundler.generate({
+      format: 'es',
+    });
+    const { output: readOutput } = await readBundler.generate({
+      format: 'es',
+    });
+    if (codeOutput.length > 1) {
       throw new Error('Multiple outputs are not supported');
     }
-    const [result] = output;
+    const [codeResult] = codeOutput;
+    const [readResult] = readOutput;
 
-    const { code } = result;
+    const { code } = codeResult;
+    const { code: preview } = readResult;
     const bundle: WorkletBundle = {
       name,
       description,
       version,
       code,
+      preview,
     };
     return bundle;
   };

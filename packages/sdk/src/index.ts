@@ -38,6 +38,7 @@ interface WorkletBundle {
   version?: string;
   author?: string;
   code: string;
+  preview?: string;
 }
 
 const wait = () => {
