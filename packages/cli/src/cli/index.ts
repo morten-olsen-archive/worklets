@@ -12,7 +12,7 @@ bundleCmd.action(async (entry: string) => {
   const location = resolve(process.cwd(), entry);
   const bundler = new Bundler(location);
   const code = await bundler.bundle();
-  console.log('foo', code);
+  console.log('foo', code.preview);
 });
 
 const shipCmd = program.command('ship');

@@ -61,17 +61,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Build ios dev
-        run: pnpm eas build --profile development --platform ios --non-interactive
-        working-directory: packages/app
-        env:
-          EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
-
-      - name: Build ios preview
-        working-directory: packages/app
-        run: pnpm eas build --profile preview --platform ios --non-interactive
-        env:
-          EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+      # - name: Build ios dev
+      #   run: pnpm eas build --profile development --platform ios --non-interactive
+      #   working-directory: packages/app
+      #   env:
+      #     EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
+      #
+      # - name: Build ios preview
+      #   working-directory: packages/app
+      #   run: pnpm eas build --profile preview --platform ios --non-interactive
+      #   env:
+      #     EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.EXPO_APPLE_APP_SPECIFIC_PASSWORD }}
 
       - name: Build ios production 
         working-directory: packages/app
