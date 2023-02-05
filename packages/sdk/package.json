@@ -1,6 +1,6 @@
 {
   "name": "@morten-olsen/worklet-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "dist/cjs/index.js",
   "types": "dist/cjs/types/index.d.ts",
   "files": [
