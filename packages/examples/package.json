@@ -14,6 +14,12 @@
     "@linear/sdk": "^2.1.0",
     "@morten-olsen/worklet": "workspace:^1.0.0",
     "@octokit/rest": "^19.0.7",
-    "octokit": "^2.0.14"
+    "@slack/web-api": "^6.8.1",
+    "aws-sdk": "^2.1309.0",
+    "octokit": "^2.0.14",
+    "xhr2": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18"
   }
 }

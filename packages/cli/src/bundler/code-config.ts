@@ -3,6 +3,7 @@ import nodePolyfills from 'rollup-plugin-node-polyfills';
 import { RollupOptions } from 'rollup';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
+import alias from '@rollup/plugin-alias';
 import sucrase from '@rollup/plugin-sucrase';
 // import auto from '@rollup/plugin-auto-install';
 import replace from '@rollup/plugin-replace';
@@ -16,8 +17,8 @@ const defaultConfig = (def: BundleConfig): RollupOptions => {
   }, {} as Record<string, string>);
   return {
     plugins: [
+      json(),
       replace({
-        preventAssignment: true,
         ...replacements,
         'process.env.NODE_ENV': JSON.stringify('development'),
       }),
@@ -26,8 +27,12 @@ const defaultConfig = (def: BundleConfig): RollupOptions => {
       }),
       nodePolyfills() as any,
       nodeResolve({ preferBuiltins: false, extensions: ['.js', '.ts', '.tsx'] }),
-      json(),
       commonjs({ include: /node_modules/ }),
+      alias({
+        entries: {
+          'aws-sdk': 'aws-sdk/dist/aws-sdk-react-native',
+        },
+      }),
     ],
   };
 };

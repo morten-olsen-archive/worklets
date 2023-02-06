@@ -42,6 +42,9 @@ class RuntimeHandler extends EventEmitter<RuntimeEvents> {
         ReactNative,
         React,
         RNUILib,
+        process: {
+          version: 'v18.0.0',
+        },
       },
     );
     const trackedTask = { task, bundle };

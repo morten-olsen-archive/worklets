@@ -33,11 +33,14 @@ class Bundler {
     const entryFile = resolve(dirname(this.#location), entry);
     const codeBundler = await rollup({
       ...config,
+      cache: false,
       input: entryFile,
+      onwarn: () => {},
     });
     const readBundler = await rollup({
       ...createReadConfig(this.#options),
       input: entryFile,
+      onwarn: () => {},
     });
     const { output: codeOutput } = await codeBundler.generate({
       format: 'es',
@@ -45,9 +48,6 @@ class Bundler {
     const { output: readOutput } = await readBundler.generate({
       format: 'es',
     });
-    if (codeOutput.length > 1) {
-      throw new Error('Multiple outputs are not supported');
-    }
     const [codeResult] = codeOutput;
     const [readResult] = readOutput;
 

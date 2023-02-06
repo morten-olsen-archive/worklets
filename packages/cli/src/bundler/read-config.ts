@@ -7,6 +7,7 @@ import { BundleConfig } from '.';
 const createReadConfig = (_def: BundleConfig): RollupOptions => {
   return {
     plugins: [
+      json(),
       replace({
         preventAssignment: true,
         'process.env.NODE_ENV': JSON.stringify('development'),
@@ -14,7 +15,6 @@ const createReadConfig = (_def: BundleConfig): RollupOptions => {
       sucrase({
         transforms: ['typescript', 'jsx'],
       }),
-      json(),
     ],
   };
 };
